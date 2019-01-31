@@ -25,16 +25,16 @@ private CoinTray coinTray;
 	
 	@Test
 	public void testIfEmptyCoinTrayReceivesCoin() {
-		coinTray.add(Coin.PENNY);
+		coinTray.insert(Coin.PENNY);
 		
-		assertEquals(Coin.PENNY.value, coinTray.getCoins().get(0).value);
+		assertEquals(Coin.PENNY.getValue(), coinTray.getCoins().get(0).getValue());
 	}
 	
 	@Test
 	public void testIfCoinTrayGivesBackBalance() {
-		coinTray.add(Coin.PENNY);
-		coinTray.add(Coin.DIME);
-		coinTray.add(Coin.DIME);
+		coinTray.insert(Coin.PENNY);
+		coinTray.insert(Coin.DIME);
+		coinTray.insert(Coin.DIME);
 		
 		assertEquals(21, coinTray.calculateBalance());
 	}
@@ -45,23 +45,33 @@ private CoinTray coinTray;
 	}
 	
 	@Test
-	public void testIfCoinTrayClearsBalance() {
-		coinTray.add(Coin.PENNY);
-		coinTray.add(Coin.DIME);
-		coinTray.add(Coin.QUARTER);
+	public void testIfCoinTrayClearsUserBalance() {
+		coinTray.insert(Coin.PENNY);
+		coinTray.insert(Coin.DIME);
+		coinTray.insert(Coin.QUARTER);
 		coinTray.clearBalance();
 		
 		assertEquals(0, coinTray.calculateBalance());
 	}
 	
 	@Test
-	public void testIfCoinTrayReceivesCoinsAfterClearingBalance() {
-		coinTray.add(Coin.PENNY);
-		coinTray.add(Coin.DIME);
-		coinTray.add(Coin.QUARTER);
+	public void testIfCoinTrayReceivesCoinsAfterClearingUserBalance() {
+		coinTray.insert(Coin.PENNY);
+		coinTray.insert(Coin.DIME);
+		coinTray.insert(Coin.QUARTER);
 		coinTray.clearBalance();
-		coinTray.add(Coin.QUARTER);
+		coinTray.insert(Coin.QUARTER);
 		
 		assertEquals(25, coinTray.calculateBalance());
+	}
+	
+	@Test
+	public void testIfInsertedCoinsAreAddedToTotal() {
+		coinTray.insert(Coin.PENNY);
+		coinTray.insert(Coin.DIME);
+		coinTray.insert(Coin.DIME);
+		coinTray.receiveInsertedCoins();
+		
+		assertEquals(1002, coinTray.getTotalCoins().get(Coin.DIME));
 	}
 }

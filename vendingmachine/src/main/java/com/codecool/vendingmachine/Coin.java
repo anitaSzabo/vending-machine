@@ -7,7 +7,7 @@ enum Coin {
 	DIME(10),
 	QUARTER(25);
 	
-	int value;
+	private int value;
 	
 	Coin(int value) {
 		this.value = value;
