@@ -8,16 +8,15 @@ public class VendingMachine
     private CoinTray coinTray;
     private ProductInventory inventory;
     private Scanner reader = new Scanner(System.in);
+    private Logger logger = new Logger();
+    private boolean productBuyed = false;
     
     public VendingMachine(CoinTray coinTray, ProductInventory inventory) {
     	this.coinTray = coinTray;
     	this.inventory = inventory;
     }
     void start() {
-    	Logger.log("Welcome! Choose a product!");
-    	Logger.log("1 - Coke (25)");
-    	Logger.log("2 - Pepsi (35)");
-    	Logger.log("3 - Soda (45)");
+    	logger.logWelcomeMessage();
     	int input = reader.nextInt();
     	Product product = getProductByUserInput(input);
     	buy(product);
@@ -26,21 +25,26 @@ public class VendingMachine
     
     void buy(Product product) {
     	while(coinTray.calculateBalance() < product.getPrice()) {
-    		Logger.log("Total price: " + product.getPrice());
-    		Logger.log("Remaining price: " + (product.getPrice() - coinTray.calculateBalance()));
-    		Logger.log("Please insert coins! \nYou can choose between 1, 5, 10 and 25.");
+    		logger.logTransaction(product.getPrice(), coinTray.calculateBalance());
     		int input = reader.nextInt();
+    		if(input == 0) {
+    			coinTray.refund();
+    			logger.log("Here is your refund: " + coinTray.calculateBalance());
+    			break;
+    		}
     		Coin.valueOf(input).ifPresent( coin -> {
     			coinTray.insert(coin);
     		});
     	}
-    	Logger.log("Here is your " + product.name());
+    	inventory.serve(product);
+    	logger.log("Here is your " + product.name());
+    	logger.log("Here is our consumption report: " + inventory.getTotalSold().toString());
     	coinTray.calculateChange();
     }
     
     void getConsumptionReport() {
     	Map<Product, Integer> totalSold = inventory.getTotalSold();
-    	Logger.log(totalSold.toString());
+    	logger.log(totalSold.toString());
     }
     
     Product getProductByUserInput(int number) {

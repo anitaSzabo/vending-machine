@@ -12,6 +12,7 @@ class ProductInventory {
 		productTotalSold.put(Product.COKE, 0);
 		productTotalSold.put(Product.PEPSI, 0);
 		productTotalSold.put(Product.SODA, 0);
+		resupply();
 	}
 	
 	public Map<Product, Integer> getInventory() {

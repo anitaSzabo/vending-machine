@@ -30,4 +30,19 @@ public class VendingMachineTest {
 	public void testVendingMachineExists() {
 		assertThat(vendingMachine).isNotNull();
 	}
+	
+	@Test
+	public void testIfVendingMachineServesTheRightProductIfInputIs1() {
+		assertEquals(Product.COKE, vendingMachine.getProductByUserInput(1));
+	}
+	
+	@Test
+	public void testIfVendingMachineServesTheRightProductIfInputIs2() {
+		assertEquals(Product.PEPSI, vendingMachine.getProductByUserInput(2));
+	}
+	
+	@Test
+	public void testIfVendingMachineServesTheRightProductIfInputIs4() {
+		assertEquals(Product.SODA, vendingMachine.getProductByUserInput(3));
+	}
 }
