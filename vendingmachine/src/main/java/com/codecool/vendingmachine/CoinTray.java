@@ -33,13 +33,17 @@ class CoinTray {
 		return insertedCoins.stream().mapToInt(Coin::getValue).sum();
 	}
 
-	public void clearBalance() {
+	public void refund() {
 		insertedCoins.clear();
-		
 	}
 	
 	void receiveInsertedCoins() {
 		insertedCoins.stream().forEach(i -> totalAmountOfCoins.put(i, totalAmountOfCoins.get(i) + 1));
-
 	}
+	
+	Map<Coin, Integer> calculateChange(int change) {
+		//TODO
+		return null;
+	}
+	
 }

@@ -49,7 +49,7 @@ private CoinTray coinTray;
 		coinTray.insert(Coin.PENNY);
 		coinTray.insert(Coin.DIME);
 		coinTray.insert(Coin.QUARTER);
-		coinTray.clearBalance();
+		coinTray.refund();
 		
 		assertEquals(0, coinTray.calculateBalance());
 	}
@@ -59,7 +59,7 @@ private CoinTray coinTray;
 		coinTray.insert(Coin.PENNY);
 		coinTray.insert(Coin.DIME);
 		coinTray.insert(Coin.QUARTER);
-		coinTray.clearBalance();
+		coinTray.refund();
 		coinTray.insert(Coin.QUARTER);
 		
 		assertEquals(25, coinTray.calculateBalance());
