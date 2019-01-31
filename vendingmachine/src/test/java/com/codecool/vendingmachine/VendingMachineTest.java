@@ -30,18 +30,4 @@ public class VendingMachineTest {
 	public void testVendingMachineExists() {
 		assertThat(vendingMachine).isNotNull();
 	}
-	
-	@Test
-	public void testIfVendingMachineReturnsTotalConsumption() {
-		Map<Product, Integer> productsTotalSold = new HashMap<>();
-		productsTotalSold.put(Product.COKE, 0);
-		productsTotalSold.put(Product.PEPSI, 0);
-		productsTotalSold.put(Product.SODA, 0);
-		
-		when(inventory.getTotalSold()).thenReturn(productsTotalSold);
-		
-		assertEquals(productsTotalSold, vendingMachine.getConsumptionReport());
-		
-		
-	}
 }

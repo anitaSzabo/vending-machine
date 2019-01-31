@@ -41,7 +41,7 @@ class CoinTray {
 		insertedCoins.stream().forEach(i -> totalAmountOfCoins.put(i, totalAmountOfCoins.get(i) + 1));
 	}
 	
-	Map<Coin, Integer> calculateChange(int change) {
+	Map<Coin, Integer> calculateChange() {
 		//TODO
 		return null;
 	}

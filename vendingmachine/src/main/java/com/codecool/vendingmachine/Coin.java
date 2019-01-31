@@ -1,5 +1,8 @@
 package com.codecool.vendingmachine;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 enum Coin {
 	
 	PENNY(1),
@@ -7,7 +10,7 @@ enum Coin {
 	DIME(10),
 	QUARTER(25);
 	
-	private int value;
+	private final int value;
 	
 	Coin(int value) {
 		this.value = value;
@@ -16,4 +19,10 @@ enum Coin {
 	public int getValue() {
 		return this.value;
 	}
+	
+	public static Optional<Coin> valueOf(int value) {
+        return Arrays.stream(values())
+            .filter(Coin -> Coin.value == value)
+            .findFirst();
+    }
 }
