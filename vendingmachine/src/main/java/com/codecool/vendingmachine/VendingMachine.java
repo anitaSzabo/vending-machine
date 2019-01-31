@@ -7,9 +7,9 @@ public class VendingMachine
     private CoinTray coinTray;
     private ProductInventory inventory;
     
-    public VendingMachine() {
-    	coinTray = new CoinTray();
-    	inventory = new ProductInventory();
+    public VendingMachine(CoinTray coinTray, ProductInventory inventory) {
+    	this.coinTray = coinTray;
+    	this.inventory = inventory;
     }
     
     Map<Product, Integer> getConsumptionReport() {

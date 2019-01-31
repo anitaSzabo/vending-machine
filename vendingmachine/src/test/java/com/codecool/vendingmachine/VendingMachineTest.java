@@ -21,9 +21,9 @@ public class VendingMachineTest {
 	
 	@BeforeEach
     public void setup() {
-        vendingMachine = new VendingMachine();
         coinTray = mock(CoinTray.class);
         inventory = mock(ProductInventory.class);
+        vendingMachine = new VendingMachine(coinTray, inventory);
     }
 	
 	@Test
