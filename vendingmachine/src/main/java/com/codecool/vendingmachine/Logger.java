@@ -9,7 +9,8 @@ public class Logger {
 	}
 
 	void logWelcomeMessage() {
-		log("Welcome! Choose a product!");
+		logWelcomeSign();
+		log("\nChoose a product!");
 		for(Product product: Product.values()) {
 			log((product.ordinal() + 1) + " - " + product.name() + " (" + product.getPrice() + ")");
 		}
@@ -31,5 +32,16 @@ public class Logger {
 	public void logConsumptionReport(Map<Product, Integer> totalSold) {
 		log("Here is our consumption report: " + totalSold.toString());
 		
+	}
+	
+	void logWelcomeSign() {
+		log(" __          __  _                          ");
+		log(" \\ \\        / / | |                        "); 
+		log("  \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___"); 
+		log("   \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\");
+		log("    \\  /\\  /  __/ | (_| (_) | | | | | |  __/");
+		log("     \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|");
+		                                            
+		                                            
 	}
 }
