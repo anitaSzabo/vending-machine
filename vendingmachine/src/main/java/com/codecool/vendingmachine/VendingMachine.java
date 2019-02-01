@@ -56,7 +56,7 @@ public class VendingMachine
     	serveProduct(product);
     }
 	
-	private void resetTransaction() {
+	void resetTransaction() {
 		logger.log("Here is your refund: " + coinTray.calculateBalance());
 		coinTray.refund();
 	}

@@ -21,12 +21,15 @@ public class VendingMachineTest {
 	private VendingMachine vendingMachine;
 	private CoinTray coinTray;
 	private ProductInventory inventory;
+	private ByteArrayOutputStream outContent;
 	
 	@BeforeEach
     public void setup() {
         coinTray = mock(CoinTray.class);
         inventory = mock(ProductInventory.class);
         vendingMachine = new VendingMachine(coinTray, inventory);
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
     }
 	
 	@Test
@@ -51,11 +54,18 @@ public class VendingMachineTest {
 	
 	@Test
 	public void testIfVendingMachineServesProduct() {
-		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
-				
 		vendingMachine.serveProduct(Product.COKE);
       
 		assertEquals("Here is your COKE\n", outContent.toString());
 	}
+	
+	@Test
+	public void testIfVendingMachineGivesRefund() {
+		when(coinTray.calculateBalance()).thenReturn(10);
+		vendingMachine.resetTransaction();
+      
+		assertEquals("Here is your refund: 10\n", outContent.toString());
+	}
+	
+	
 }
