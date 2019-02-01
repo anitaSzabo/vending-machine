@@ -1,5 +1,6 @@
 package com.codecool.vendingmachine;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,46 +9,52 @@ public class VendingMachine
 {
     private CoinTray coinTray;
     private ProductInventory inventory;
-    private Scanner reader;
     private Logger logger;
     private InputManager input;
-    private boolean productPayed = false;
+    
+    private boolean newTransaction = false;
+    private List<Integer> startingOptions = Arrays.asList(1, 2, 3, 4);
+    private List<Integer> supplierOptions = Arrays.asList(1, 2, 3);
+    private List<Integer> transactionOptions = Arrays.asList(0, 1, 5, 10, 25);
+    private List<Integer> finalOptions = Arrays.asList(1);
     
     public VendingMachine(CoinTray coinTray, ProductInventory inventory) {
     	this.coinTray = coinTray;
     	this.inventory = inventory;
-    	this.reader = new Scanner(System.in);
         this.logger = new Logger();
         this.input = new InputManager(); 
     }
     
     void start() {
-    	logger.logWelcomeMessage();
-    	int inputNumber = input.verifyStartingInput();
-    	if(inputNumber == 4) {
-    		startSupplierMode();
-    	} else {
-	    	Product product = getProductByUserInput(inputNumber);
-	    	checkAvailability(product);
-;	    	startPayingMode(product);
+    	while (!newTransaction) {
+	    	logger.logWelcomeMessage();
+	    	int inputNumber = input.verifyInput(startingOptions);
+	    	if(inputNumber == 4) {
+	    		startSupplierMode();
+	    	} else {
+		    	Product product = getProductByUserInput(inputNumber);
+		    	checkAvailability(product);
+		    	startPayingMode(product);
+	    	}
     	}
     }
     
-
 	private void startSupplierMode() {
 		logger.logSupplierMenu();
-		int inputNumber = input.verifySupplierInput();
+		int inputNumber = input.verifyInput(supplierOptions);
 		if(inputNumber == 1) {
 			inventory.resupply();
 		} else if (inputNumber == 2) {
 			logger.logConsumptionReport(inventory.getTotalSold());
+		} else {
+			start();
 		}
 	}
     
 	void startPayingMode(Product product) {
     	while(coinTray.calculateBalance() < product.getPrice()) {
     		logger.logTransaction(product.getPrice(), coinTray.calculateBalance());
-    		int inputNumber = input.verifyTransactionInput();
+    		int inputNumber = input.verifyInput(transactionOptions);
     		if(inputNumber == 0) {
     			resetTransaction();
     			break;
@@ -58,6 +65,7 @@ public class VendingMachine
     	}
     	serveProduct(product);
     	calculateChange(coinTray.calculateBalance(), product.getPrice());
+    	restart();
     }
 	
 	void calculateChange(int balance, int price) {
@@ -99,5 +107,10 @@ public class VendingMachine
 			throw new OutOfStockException();
 		}  
 	}
+    
+    void restart() {
+    	logger.logFinalMessage();
+    	int number = input.verifyInput(finalOptions);
+    }
     
 }

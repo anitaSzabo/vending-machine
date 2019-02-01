@@ -38,7 +38,7 @@ public class LoggerTest {
 	public void testIfLoggerLogsSupplierMenu() {
 		logger.logSupplierMenu();
 		
-		assertEquals("1 - Resupply machine\n2 - Consumption report\n", outContent.toString());
+		assertEquals("1 - Resupply machine\n2 - Consumption report\n\n3 - Go back\n", outContent.toString());
 	}
 	
 	@Test

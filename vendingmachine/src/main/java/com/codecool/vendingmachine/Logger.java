@@ -27,6 +27,7 @@ public class Logger {
 	void logSupplierMenu() {
 		log("1 - Resupply machine");
 		log("2 - Consumption report");
+		log("\n3 - Go back");
 	}
 
 	public void logConsumptionReport(Map<Product, Integer> totalSold) {
@@ -41,5 +42,10 @@ public class Logger {
 		log("   \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\");
 		log("    \\  /\\  /  __/ | (_| (_) | | | | | |  __/");
 		log("     \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|");                                       
+	}
+
+	public void logFinalMessage() {
+		log("Press 1 to start a new transaction!");
+		
 	}
 }
