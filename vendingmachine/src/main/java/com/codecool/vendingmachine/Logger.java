@@ -9,7 +9,7 @@ public class Logger {
 	}
 
 	void logWelcomeMessage() {
-		logWelcomeSign();
+		logWelcomeLogo();
 		log("\nChoose a product!");
 		for(Product product: Product.values()) {
 			log((product.ordinal() + 1) + " - " + product.name() + " (" + product.getPrice() + ")");
@@ -34,14 +34,12 @@ public class Logger {
 		
 	}
 	
-	void logWelcomeSign() {
+	void logWelcomeLogo() {
 		log(" __          __  _                          ");
 		log(" \\ \\        / / | |                        "); 
 		log("  \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___"); 
 		log("   \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\");
 		log("    \\  /\\  /  __/ | (_| (_) | | | | | |  __/");
-		log("     \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|");
-		                                            
-		                                            
+		log("     \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|");                                       
 	}
 }

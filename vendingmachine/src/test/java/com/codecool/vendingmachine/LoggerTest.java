@@ -47,6 +47,19 @@ public class LoggerTest {
 		
 		assertEquals("Total price: 30\nRemaining price: 5\nPlease insert coins! \nYou can choose between 1, 5, 10 and 25.\nPress 0 for cancelling.\n", 
 				outContent.toString());
-	}	
+	}
+	
+	@Test
+	public void testIfLoggerLogsWelcomeLogo() {
+		logger.logWelcomeLogo();
+		
+		assertEquals(" __          __  _                          \n" +
+					" \\ \\        / / | |                        \n" + 
+					"  \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___\n" + 
+					"   \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\\n" +
+					"    \\  /\\  /  __/ | (_| (_) | | | | | |  __/\n" +
+					"     \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|\n", 
+				outContent.toString());
+	}
 	
 }
