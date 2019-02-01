@@ -52,13 +52,6 @@ public class ProductInventoryTest {
 	}
 	
 	@Test
-	public void testIfProductInventoryThrowsErrorWhenInventoryIs0() {
-		assertThrows(OutOfStockException.class, ()-> {
-			productInventory.serve(Product.SODA);
-        });
-	}
-	
-	@Test
 	public void testIfProductIsAddedToTotalSoldAfterServing() {
 		productInventory.resupply();
 		productInventory.serve(Product.SODA);

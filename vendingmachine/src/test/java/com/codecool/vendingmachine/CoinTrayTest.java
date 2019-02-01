@@ -1,10 +1,11 @@
 package com.codecool.vendingmachine;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,5 +74,21 @@ private CoinTray coinTray;
 		coinTray.receiveInsertedCoins();
 		
 		assertEquals(1002, coinTray.getTotalCoins().get(Coin.DIME));
+	}
+	
+	@Test
+	public void testIfCoinTrayGivesBackChange() {
+		Map<Coin, Integer> coins = new HashMap<>();
+		coins.put(Coin.DIME, 1);
+		coins.put(Coin.NICKEL, 1);
+		
+		assertEquals(coins, coinTray.getCoins(15));
+	}
+	
+	@Test
+	public void testIfCoinTrayGivesBackChangeIfChangeIs0() {
+		Map<Coin, Integer> coins = new HashMap<>();
+		
+		assertEquals(coins, coinTray.getCoins(0));
 	}
 }

@@ -1,5 +1,6 @@
 package com.codecool.vendingmachine;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -27,11 +28,13 @@ public class VendingMachine
     		startSupplierMode();
     	} else {
 	    	Product product = getProductByUserInput(inputNumber);
-	    	startPayingMode(product);
+	    	checkAvailability(product);
+;	    	startPayingMode(product);
     	}
     }
     
-    private void startSupplierMode() {
+
+	private void startSupplierMode() {
 		logger.logSupplierMenu();
 		int inputNumber = input.verifySupplierInput();
 		if(inputNumber == 1) {
@@ -54,8 +57,18 @@ public class VendingMachine
     		});
     	}
     	serveProduct(product);
+    	calculateChange(coinTray.calculateBalance(), product.getPrice());
     }
 	
+	void calculateChange(int balance, int price) {
+		int amountOfChange = balance - price;
+		Map<Coin, Integer> change = coinTray.getCoins(amountOfChange);
+		if(!change.isEmpty()) {
+			logger.log("Here is your change " + change.toString());
+		}
+		
+	}
+
 	void resetTransaction() {
 		logger.log("Here is your refund: " + coinTray.calculateBalance());
 		coinTray.refund();
@@ -64,7 +77,6 @@ public class VendingMachine
 	void serveProduct(Product product) {
 		inventory.serve(product);
     	logger.log("Here is your " + product.name());
-    	coinTray.calculateChange();
 	}
     
     void getConsumptionReport() {
@@ -81,5 +93,11 @@ public class VendingMachine
     		return Product.SODA;
     	}
     }
+    
+    void checkAvailability(Product product) {
+    	if (inventory.getInventory().get((product)) == 0) {
+			throw new OutOfStockException();
+		}  
+	}
     
 }

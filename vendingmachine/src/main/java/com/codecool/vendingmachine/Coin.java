@@ -1,6 +1,7 @@
 package com.codecool.vendingmachine;
 
 import java.util.Arrays;
+
 import java.util.Optional;
 
 enum Coin {

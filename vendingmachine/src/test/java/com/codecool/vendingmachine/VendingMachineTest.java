@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -63,6 +65,18 @@ public class VendingMachineTest {
 		vendingMachine.resetTransaction();
       
 		assertEquals("Here is your refund: 10\n", outContent.toString());
+	}
+	
+	@Test
+	public void testIfVendingMachineThrowsErrorWhenInventoryIs0() {
+		Map<Product, Integer> inventoryItems = new HashMap<>();
+		inventoryItems.put(Product.COKE, 0);
+		
+		when((inventory).getInventory()).thenReturn(inventoryItems);
+		
+		assertThrows(OutOfStockException.class, ()-> {
+			vendingMachine.checkAvailability(Product.COKE);
+        });
 	}
 	
 	
