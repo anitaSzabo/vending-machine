@@ -7,40 +7,65 @@ public class VendingMachine
 {
     private CoinTray coinTray;
     private ProductInventory inventory;
-    private Scanner reader = new Scanner(System.in);
-    private Logger logger = new Logger();
-    private boolean productBuyed = false;
+    private Scanner reader;
+    private Logger logger;
+    private InputManager input;
+    private boolean productPayed = false;
     
     public VendingMachine(CoinTray coinTray, ProductInventory inventory) {
     	this.coinTray = coinTray;
     	this.inventory = inventory;
-    }
-    void start() {
-    	logger.logWelcomeMessage();
-    	int input = reader.nextInt();
-    	Product product = getProductByUserInput(input);
-    	buy(product);
-   
+    	this.reader = new Scanner(System.in);
+        this.logger = new Logger();
+        this.input = new InputManager(); 
     }
     
-    void buy(Product product) {
+    void start() {
+    	logger.logWelcomeMessage();
+    	int inputNumber = input.verifyStartingInput();
+    	if(inputNumber == 4) {
+    		startSupplierMode();
+    	} else {
+	    	Product product = getProductByUserInput(inputNumber);
+	    	startPayingMode(product);
+    	}
+    }
+    
+    private void startSupplierMode() {
+		logger.logSupplierMenu();
+		int inputNumber = input.verifySupplierInput();
+		if(inputNumber == 1) {
+			inventory.resupply();
+		} else if (inputNumber == 2) {
+			logger.logConsumptionReport(inventory.getTotalSold());
+		}
+	}
+    
+	void startPayingMode(Product product) {
     	while(coinTray.calculateBalance() < product.getPrice()) {
     		logger.logTransaction(product.getPrice(), coinTray.calculateBalance());
-    		int input = reader.nextInt();
-    		if(input == 0) {
-    			coinTray.refund();
-    			logger.log("Here is your refund: " + coinTray.calculateBalance());
+    		int inputNumber = input.verifyTransactionInput();
+    		if(inputNumber == 0) {
+    			resetTransaction();
     			break;
     		}
-    		Coin.valueOf(input).ifPresent( coin -> {
+    		Coin.valueOf(inputNumber).ifPresent( coin -> {
     			coinTray.insert(coin);
     		});
     	}
-    	inventory.serve(product);
-    	logger.log("Here is your " + product.name());
-    	logger.log("Here is our consumption report: " + inventory.getTotalSold().toString());
-    	coinTray.calculateChange();
+    	serveProduct(product);
     }
+	
+	private void resetTransaction() {
+		logger.log("Here is your refund: " + coinTray.calculateBalance());
+		coinTray.refund();
+	}
+	
+	void serveProduct(Product product) {
+		inventory.serve(product);
+    	logger.log("Here is your " + product.name());
+    	coinTray.calculateChange();
+	}
     
     void getConsumptionReport() {
     	Map<Product, Integer> totalSold = inventory.getTotalSold();

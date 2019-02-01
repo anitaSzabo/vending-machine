@@ -31,7 +31,7 @@ class ProductInventory {
     }
 
 	public void serve(Product product) {
-		if (productInventory.get(product) == null) {
+		if (productInventory.get(product) == 0) {
 			throw new OutOfStockException();
 		}  
 		productInventory.put(product, (productInventory.get(product) - 1));

@@ -1,10 +1,13 @@
 package com.codecool.vendingmachine;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,5 +47,15 @@ public class VendingMachineTest {
 	@Test
 	public void testIfVendingMachineServesTheRightProductIfInputIs4() {
 		assertEquals(Product.SODA, vendingMachine.getProductByUserInput(3));
+	}
+	
+	@Test
+	public void testIfVendingMachineServesProduct() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+				
+		vendingMachine.serveProduct(Product.COKE);
+      
+		assertEquals("Here is your COKE\n", outContent.toString());
 	}
 }
