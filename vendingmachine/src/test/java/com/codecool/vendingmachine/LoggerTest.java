@@ -62,4 +62,18 @@ public class LoggerTest {
 				outContent.toString());
 	}
 	
+	@Test
+	public void testIfLoggerLogsFinalMessage() {
+		logger.logFinalMessage();
+		
+		assertEquals("Press 1 to start a new transaction!\n", outContent.toString());
+	}
+	
+	@Test
+	public void testIfLoggerLogsResupply() {
+		logger.logResupply();
+		
+		assertEquals("Vending machine resupplied!\n", outContent.toString());
+	}
+	
 }

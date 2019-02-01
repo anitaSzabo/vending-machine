@@ -63,5 +63,13 @@ class CoinTray {
 		return (remainingChange = remainingChange % coin.getValue());
 	}
 	
+	void clearChange() {
+		change.put(Coin.PENNY, 0);
+		change.put(Coin.NICKEL, 0);
+		change.put(Coin.DIME, 0);
+		change.put(Coin.QUARTER, 0);
+		remainingChange = 0;
+	}
+	
 	
 }

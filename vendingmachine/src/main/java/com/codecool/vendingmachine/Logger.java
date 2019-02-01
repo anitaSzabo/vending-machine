@@ -46,6 +46,9 @@ public class Logger {
 
 	public void logFinalMessage() {
 		log("Press 1 to start a new transaction!");
-		
+	}
+	
+	public void logResupply() {
+		log("Vending machine resupplied!");
 	}
 }

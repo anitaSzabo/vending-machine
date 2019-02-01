@@ -3,10 +3,9 @@ package com.codecool.vendingmachine;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
-public class VendingMachine 
-{
+public class VendingMachine {
+	
     private CoinTray coinTray;
     private ProductInventory inventory;
     private Logger logger;
@@ -44,11 +43,11 @@ public class VendingMachine
 		int inputNumber = input.verifyInput(supplierOptions);
 		if(inputNumber == 1) {
 			inventory.resupply();
+			logger.logResupply();
 		} else if (inputNumber == 2) {
 			logger.logConsumptionReport(inventory.getTotalSold());
-		} else {
-			start();
 		}
+		restart();
 	}
     
 	void startPayingMode(Product product) {
@@ -110,6 +109,8 @@ public class VendingMachine
     
     void restart() {
     	logger.logFinalMessage();
+    	coinTray.refund();
+    	coinTray.clearChange();
     	int number = input.verifyInput(finalOptions);
     }
     
