@@ -22,8 +22,8 @@ enum Coin {
 	}
 	
 	public static Optional<Coin> valueOf(int value) {
-        return Arrays.stream(values())
-            .filter(Coin -> Coin.value == value)
-            .findFirst();
+			return Arrays.stream(values())
+				.filter(Coin -> Coin.value == value)
+				.findFirst();
     }
 }

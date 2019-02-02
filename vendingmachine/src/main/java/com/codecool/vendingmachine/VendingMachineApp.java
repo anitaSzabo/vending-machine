@@ -9,7 +9,6 @@ public class VendingMachineApp {
 		VendingMachine vendingMachine = new VendingMachine(coinTray, inventory);
 		
 		vendingMachine.start();
-		
 	}
 	
 }

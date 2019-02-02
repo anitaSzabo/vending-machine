@@ -20,8 +20,8 @@ public class VendingMachine {
     public VendingMachine(CoinTray coinTray, ProductInventory inventory) {
     	this.coinTray = coinTray;
     	this.inventory = inventory;
-        this.logger = new Logger();
-        this.input = new InputManager(); 
+    	this.logger = new Logger();
+    	this.input = new InputManager(); 
     }
     
     void start() {
@@ -51,20 +51,20 @@ public class VendingMachine {
 	}
     
 	void startPayingMode(Product product) {
-    	while(coinTray.calculateBalance() < product.getPrice()) {
-    		logger.logTransaction(product.getPrice(), coinTray.calculateBalance());
-    		int inputNumber = input.verifyInput(transactionOptions);
-    		if(inputNumber == 0) {
-    			resetTransaction();
-    			break;
-    		}
-    		Coin.valueOf(inputNumber).ifPresent( coin -> {
-    			coinTray.insert(coin);
-    		});
-    	}
-    	serveProduct(product);
-    	calculateChange(coinTray.calculateBalance(), product.getPrice());
-    	restart();
+		while(coinTray.calculateBalance() < product.getPrice()) {
+			logger.logTransaction(product.getPrice(), coinTray.calculateBalance());
+			int inputNumber = input.verifyInput(transactionOptions);
+			if(inputNumber == 0) {
+				resetTransaction();
+				break;
+			}
+			Coin.valueOf(inputNumber).ifPresent( coin -> {
+				coinTray.insert(coin);
+			});
+		}
+		serveProduct(product);
+		calculateChange(coinTray.calculateBalance(), product.getPrice());
+		restart();
     }
 	
 	void calculateChange(int balance, int price) {
@@ -83,11 +83,11 @@ public class VendingMachine {
 	
 	void serveProduct(Product product) {
 		inventory.serve(product);
-    	logger.log("Here is your " + product.name());
+		logger.log("Here is your " + product.name());
 	}
     
-    void getConsumptionReport() {
-    	Map<Product, Integer> totalSold = inventory.getTotalSold();
+	void getConsumptionReport() {
+		Map<Product, Integer> totalSold = inventory.getTotalSold();
     	logger.log(totalSold.toString());
     }
     

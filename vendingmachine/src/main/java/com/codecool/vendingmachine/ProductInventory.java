@@ -25,11 +25,11 @@ class ProductInventory {
 	}
 	
 	public void resupply() {
-        productInventory.clear();
-        productInventory.put(Product.COKE, 50);
-        productInventory.put(Product.PEPSI, 50);
-        productInventory.put(Product.SODA, 50);
-    }
+		productInventory.clear();
+		productInventory.put(Product.COKE, 50);
+		productInventory.put(Product.PEPSI, 50);
+		productInventory.put(Product.SODA, 50);
+	}
 
 	public void serve(Product product) {
 		productInventory.put(product, (productInventory.get(product) - 1));

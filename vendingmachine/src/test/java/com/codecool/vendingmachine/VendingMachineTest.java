@@ -24,12 +24,12 @@ public class VendingMachineTest {
 	private ByteArrayOutputStream outContent;
 	
 	@BeforeEach
-    public void setup() {
-        coinTray = mock(CoinTray.class);
-        inventory = mock(ProductInventory.class);
-        vendingMachine = new VendingMachine(coinTray, inventory);
-        outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+	public void setup() {
+		coinTray = mock(CoinTray.class);
+		inventory = mock(ProductInventory.class);
+		vendingMachine = new VendingMachine(coinTray, inventory);
+		outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
     }
 	
 	@Test

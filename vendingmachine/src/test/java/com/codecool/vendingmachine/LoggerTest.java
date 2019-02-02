@@ -19,7 +19,7 @@ public class LoggerTest {
 	void setup() {
 		logger =  new Logger();
 		outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+		System.setOut(new PrintStream(outContent));
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class LoggerTest {
 	@Test
 	public void testIfLoggerLogsMessage() {
 		logger.log("Hello World!");
-      
+		
 		assertEquals("Hello World!\n", outContent.toString());
 	}
 	
