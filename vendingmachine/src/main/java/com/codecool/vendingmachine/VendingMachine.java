@@ -103,7 +103,8 @@ public class VendingMachine {
     
     void checkAvailability(Product product) {
     	if (inventory.getInventory().get((product)) == 0) {
-			throw new OutOfStockException();
+			logger.logProductIsOutOfStock();
+			restart();
 		}  
 	}
     

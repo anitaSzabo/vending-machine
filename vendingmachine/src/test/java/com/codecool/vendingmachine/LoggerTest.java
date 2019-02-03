@@ -76,4 +76,11 @@ public class LoggerTest {
 		assertEquals("Vending machine resupplied!\n", outContent.toString());
 	}
 	
+	@Test
+	public void testIfLoggerÉogsProductIsOutOfStock( ) {
+		logger.logProductIsOutOfStock();
+		
+		assertEquals("Product is out of stock.\n", outContent.toString());
+	}
+	
 }

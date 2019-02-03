@@ -51,4 +51,8 @@ public class Logger {
 	public void logResupply() {
 		log("Vending machine resupplied!");
 	}
+	
+	public void logProductIsOutOfStock() {
+		log("Product is out of stock.");
+	}
 }
